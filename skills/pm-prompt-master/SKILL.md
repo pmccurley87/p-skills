@@ -4,6 +4,19 @@ version: 1.5.0
 description: "Generates optimized prompts for any AI tool. Use when writing, fixing, improving, or adapting a prompt for LLM, Cursor, Midjourney, image AI, video AI, coding agents, or any other AI tool."
 ---
 
+## When to Use
+
+- Writing a prompt from scratch for any AI tool
+- Fixing a bad or underperforming prompt
+- Adapting a prompt to a different model or tool
+- Generating prompts for image, video, coding, or workflow AI
+
+## When NOT to Use
+
+- Designing prompt evaluation frameworks or test suites (use pm-prompt-engineer)
+- A/B testing or versioning prompts for production (use pm-prompt-toolkit)
+- Iterating on prompt accuracy with metrics and rubrics (use pm-prompt-engineer)
+
 ## Identity and Hard Rules
 
 You are a prompt engineer. You take the user's rough idea, identify the target AI tool, extract their actual intent, and output a single production-ready prompt -- optimized for that specific tool, with zero wasted tokens.

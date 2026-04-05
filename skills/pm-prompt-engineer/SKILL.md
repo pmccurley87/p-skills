@@ -18,6 +18,13 @@ Expert prompt engineer specializing in designing, optimizing, and evaluating pro
 - Debugging inconsistent or poor-quality LLM outputs
 - Migrating prompts between different models or providers
 
+## When NOT to Use
+
+- Generating ready-to-paste prompts for specific AI tools (use pm-prompt-master)
+- A/B testing or versioning production prompts (use pm-prompt-toolkit)
+- Rewriting text to sound more human (use pm-humanizer)
+- One-off prompt tweaks that don't need evaluation or iteration
+
 ## Core Workflow
 
 1. **Understand requirements** -- Define task, success criteria, constraints, and edge cases

@@ -7,7 +7,21 @@ description: "Analyzes and rewrites prompts for better AI output, creates reusab
 
 ## Overview
 
-Use this skill to move prompts from ad-hoc drafts to production assets with repeatable testing, versioning, and regression safety. It emphasizes measurable quality over intuition. Apply it when launching a new LLM feature that needs reliable outputs, when prompt quality degrades after model or instruction changes, when multiple team members edit prompts and need history/diffs, when you need evidence-based prompt choice for production rollout, or when you want consistent prompt governance across environments.
+Move prompts from ad-hoc drafts to production assets with repeatable testing, versioning, and regression safety. Emphasizes measurable quality over intuition.
+
+## When to Use
+
+- Launching a new LLM feature that needs reliable outputs
+- Prompt quality degrades after model or instruction changes
+- Multiple team members edit prompts and need history/diffs
+- Evidence-based prompt selection for production rollout
+- Consistent prompt governance across environments
+
+## When NOT to Use
+
+- Writing a prompt from scratch (use pm-prompt-master)
+- Designing prompts with evaluation rubrics and iteration (use pm-prompt-engineer)
+- One-off prompt improvements that don't need A/B testing or versioning
 
 ## Core Capabilities
 
@@ -22,20 +36,11 @@ Use this skill to move prompts from ad-hoc drafts to production assets with repe
 
 ### 1. Run Prompt A/B Test
 
-Prepare JSON test cases and run:
-
-```bash
-python3 scripts/prompt_tester.py \
-  --prompt-a-file prompts/a.txt \
-  --prompt-b-file prompts/b.txt \
-  --cases-file testcases.json \
-  --runner-cmd 'my-llm-cli --prompt {prompt} --input {input}' \
-  --format text
-```
+Prepare JSON test cases with input/expected pairs, then evaluate both prompts against them. Score each output on:
 
 ### 2. Choose Winner With Evidence
 
-The tester scores outputs per case and aggregates:
+Score outputs per case and aggregate:
 
 - expected content coverage
 - forbidden content violations
@@ -46,19 +51,7 @@ Use the higher-scoring prompt as candidate baseline, then run regression suite.
 
 ### 3. Version Prompts
 
-```bash
-# Add version
-python3 scripts/prompt_versioner.py add \
-  --name support_classifier \
-  --prompt-file prompts/support_v3.txt \
-  --author alice
-
-# Diff versions
-python3 scripts/prompt_versioner.py diff --name support_classifier --from-version 2 --to-version 3
-
-# Changelog
-python3 scripts/prompt_versioner.py changelog --name support_classifier
-```
+Track each prompt with a semantic identifier (e.g., `support_classifier`), version number, author, and change note. Store versions immutably so diffs between any two versions are always available.
 
 ### 4. Regression Loop
 

@@ -7,6 +7,23 @@ description: "Test-driven development skill for writing unit tests, generating t
 
 Test-driven development skill for generating tests, analyzing coverage, and guiding red-green-refactor workflows across Jest, Pytest, JUnit, and Vitest.
 
+## When to Use
+
+- Writing unit tests for new or existing code
+- Practicing red-green-refactor TDD cycles
+- Analyzing test coverage gaps and prioritizing what to test next
+- Generating test fixtures, mocks, or stubs
+- Adding property-based or mutation testing to a project
+- Working with Jest, Pytest, JUnit, Vitest, Mocha, or Go testing
+
+## When NOT to Use
+
+- E2E or integration testing -- use Playwright, Cypress, or Selenium instead
+- Performance/load testing -- use k6, JMeter, or Locust
+- Security testing -- use OWASP ZAP or Burp Suite
+- Manual QA workflows or exploratory testing
+- Writing tests for languages not covered (best for TS, JS, Python, Java, Go)
+
 ## Workflows
 
 ### Generate Tests from Code
