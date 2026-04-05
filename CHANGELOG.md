@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-04-06]
+
+### pm-claude-md v1.0.0
+- New plugin: audit, update, and maintain CLAUDE.md files with quality scoring, session learning capture, staleness detection, conflict resolution, and smart placement across root/local/global/package files
+
 ## [2026-04-05]
 
 ### pm-update-claude-marketplace v1.0.0
