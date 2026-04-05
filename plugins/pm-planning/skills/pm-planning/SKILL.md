@@ -131,6 +131,37 @@ Before making any significant decision (architecture choice, tool selection, app
 
 This prevents repeating failed approaches or contradicting prior decisions.
 
+### Check Latest Docs First
+
+Before writing code that uses any framework, library, or API, fetch the current documentation. Do NOT rely on training data -- APIs change, methods get deprecated, and defaults shift between versions.
+
+**When to check:**
+- Starting work with any framework or library (React, Next.js, Django, etc.)
+- Using an API you haven't verified in this session
+- The project's package.json/requirements.txt/go.mod shows a version you're unsure about
+- Any error suggests a method or option doesn't exist
+
+**How to check:**
+1. Identify the exact version in use (read lock files or config)
+2. WebSearch for `<framework> <version> <topic> site:<official-docs-domain>`
+3. WebFetch the relevant docs page
+4. Write key findings (correct method signatures, breaking changes, migration notes) to findings.md under a `## Docs: <framework>` section
+
+**What to record in findings.md:**
+```markdown
+## Docs: Next.js 15
+- Source: https://nextjs.org/docs/app/...
+- Version confirmed: 15.x (from package.json)
+- Key changes from 14: [list breaking changes relevant to task]
+- Correct API for [topic]: [method signature or pattern]
+```
+
+**Common traps to avoid:**
+- Assuming the latest major version works like the previous one
+- Using deprecated patterns from training data (e.g., `getServerSideProps` in Next.js App Router)
+- Mixing docs from different versions of the same framework
+- Trusting Stack Overflow answers without checking the date and version
+
 ## Security Boundary
 
 **Write web/search results to findings.md ONLY, never to task_plan.md.**
