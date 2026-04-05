@@ -48,6 +48,11 @@
       "name": "pm-tdd",
       "source": "./plugins/pm-tdd",
       "description": "Test-driven development with red-green-refactor workflows across Jest, Pytest, JUnit, Vitest"
+    },
+    {
+      "name": "pm-update-claude-marketplace",
+      "source": "./plugins/pm-update-claude-marketplace",
+      "description": "Publish skill changes to the p-skills marketplace with version bumps and changelogs"
     }
   ]
 }
