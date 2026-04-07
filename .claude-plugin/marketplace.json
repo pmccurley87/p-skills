@@ -58,6 +58,11 @@
       "name": "pm-update-claude-marketplace",
       "source": "./plugins/pm-update-claude-marketplace",
       "description": "Publish skill changes to the p-skills marketplace with version bumps and changelogs"
+    },
+    {
+      "name": "pm-confirm-issue",
+      "source": "./plugins/pm-confirm-issue",
+      "description": "Confirm the existence of a bug or behavior without taking any action to fix it"
     }
   ]
 }
