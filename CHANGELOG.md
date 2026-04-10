@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-04-10]
+
+### pm-cold-review v1.0.0
+- New plugin: context-free code review using an isolated subagent — reviewer sees only the raw diff and codebase, no conversation history, for unbiased feedback with severity-categorized issues and a ship/fix/rethink verdict
+
 ## [2026-04-07]
 
 ### pm-confirm-issue v1.0.0

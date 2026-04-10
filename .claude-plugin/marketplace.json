@@ -63,6 +63,11 @@
       "name": "pm-confirm-issue",
       "source": "./plugins/pm-confirm-issue",
       "description": "Confirm the existence of a bug or behavior without taking any action to fix it"
+    },
+    {
+      "name": "pm-cold-review",
+      "source": "./plugins/pm-cold-review",
+      "description": "Context-free code review via isolated subagent for honest, unbiased feedback on diffs and PRs"
     }
   ]
 }
