@@ -1,5 +1,13 @@
 # Changelog
 
+## [2026-04-11]
+
+### pm-confirm-issue v1.1.0
+- Added facts-only rule: every claim must cite code, output, or test evidence — no assumptions allowed
+- Added fact vs. assumption comparison table with concrete examples
+- Verdict template now includes an "Unverified" section for things that couldn't be confirmed
+- "What NOT to do" expanded: no hedging language without evidence, no inferring behavior from names alone
+
 ## [2026-04-10]
 
 ### pm-cold-review v1.0.0
