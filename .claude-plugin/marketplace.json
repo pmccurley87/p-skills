@@ -4,70 +4,15 @@
     "name": "Patrick McCurley"
   },
   "metadata": {
-    "description": "Personal Claude Code skills for databases, prompts, TDD, planning, and writing",
-    "version": "1.0.0",
+    "description": "Personal Claude Code skills for databases, prompts, TDD, planning, writing, code review, and more",
+    "version": "2.0.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "pm-database-designer",
-      "source": "./plugins/pm-database-designer",
-      "description": "Design database schemas, plan migrations, optimize queries, choose between SQL and NoSQL"
-    },
-    {
-      "name": "pm-humanizer",
-      "source": "./plugins/pm-humanizer",
-      "description": "Remove AI writing patterns and make text sound natural and human-written"
-    },
-    {
-      "name": "pm-planning",
-      "source": "./plugins/pm-planning",
-      "description": "File-based planning for complex multi-step tasks with persistent markdown tracking"
-    },
-    {
-      "name": "pm-prompt-engineer",
-      "source": "./plugins/pm-prompt-engineer",
-      "description": "Design, optimize, and evaluate LLM prompts with structured output schemas and test suites"
-    },
-    {
-      "name": "pm-prompt-master",
-      "source": "./plugins/pm-prompt-master",
-      "description": "Generate optimized ready-to-paste prompts for any AI tool"
-    },
-    {
-      "name": "pm-prompt-toolkit",
-      "source": "./plugins/pm-prompt-toolkit",
-      "description": "A/B test, version, and manage prompts for production with regression safety"
-    },
-    {
-      "name": "pm-skill-improver",
-      "source": "./plugins/pm-skill-improver",
-      "description": "Iteratively review and fix Claude Code skill quality issues"
-    },
-    {
-      "name": "pm-tdd",
-      "source": "./plugins/pm-tdd",
-      "description": "Test-driven development with red-green-refactor workflows across Jest, Pytest, JUnit, Vitest"
-    },
-    {
-      "name": "pm-claude-md",
-      "source": "./plugins/pm-claude-md",
-      "description": "Audit, update, and maintain CLAUDE.md files with quality scoring, session learning capture, and staleness detection"
-    },
-    {
-      "name": "pm-update-claude-marketplace",
-      "source": "./plugins/pm-update-claude-marketplace",
-      "description": "Publish skill changes to the p-skills marketplace with version bumps and changelogs"
-    },
-    {
-      "name": "pm-confirm-issue",
-      "source": "./plugins/pm-confirm-issue",
-      "description": "Confirm the existence of a bug or behavior without taking any action to fix it"
-    },
-    {
-      "name": "pm-cold-review",
-      "source": "./plugins/pm-cold-review",
-      "description": "Context-free code review via isolated subagent for honest, unbiased feedback on diffs and PRs"
+      "name": "pm",
+      "source": "./plugins/pm",
+      "description": "Patrick's Claude Code skills — databases, prompts, TDD, planning, writing, code review, and more"
     }
   ]
 }
