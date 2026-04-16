@@ -4,8 +4,8 @@
 
 ### pm v2.0.0 (BREAKING)
 - Consolidated all 12 individual plugins into a single `pm` plugin with 12 skills
-- Skills are now referenced as `pm:<skill-name>` instead of `pm-<skill-name>:pm-<skill-name>` (e.g., `pm:tdd` instead of `pm-tdd:pm-tdd`)
-- Updated `update-claude-marketplace` skill documentation to reflect the new single-plugin structure
+- Skills are now referenced as `pm:pm-<skill-name>` instead of `pm-<skill-name>:pm-<skill-name>` (e.g., `pm:pm-tdd` instead of `pm-tdd:pm-tdd`)
+- Updated `pm-update-claude-marketplace` skill documentation to reflect the new single-plugin structure
 - Consumers: remove old `pm-*@p-skills` entries from settings and add `"pm@p-skills": true`
 
 ## [2026-04-11]
