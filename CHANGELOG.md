@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-05-11]
+
+### pm v2.1.0
+- Added `pm-walkthrough` skill: walks a reviewer through a list of items (bugs, features, plan steps) one at a time, generating a rich HTML page per item with diagrams, comparison tables, and before/after side-by-sides so the reviewer builds deep understanding before approving or rejecting. Iterative — each item gets its own verdict. Use when there's a backlog of items needing sign-off.
+
 ## [2026-04-16]
 
 ### pm v2.0.0 (BREAKING)
