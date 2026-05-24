@@ -31,3 +31,22 @@ logging as a first-class channel (prefer victorialogs), the explicit readiness
 gate before the loop starts, the auth channel, and the `/goal` anchor — while
 preserving the already-good run/observe/investigate/iterate behavior and the
 adapt-don't-obey instinct.
+
+## GREEN results (with the skill)
+
+All three scenarios re-run with the skill present. Every baseline gap closed; no
+new rationalizations/loopholes surfaced, so no REFACTOR changes were needed.
+
+- **A (checkout button):** Now sets up the logging channel with a presence check,
+  emits the readiness-gate table (channel · status · how verified), and anchors a
+  `/goal`. Explicitly refuses to edit before the gate passes.
+- **B (cron job, no UI):** Correctly *drops* browser + auth and explains why,
+  keeps execution + logging, emits the readiness gate, and sets an escalation
+  trigger. Confirms "adapt, don't obey" works.
+- **C (vague "improve until good"):** Pins down observable success criteria via
+  sharp clarifying questions in Phase 0 before looping; drops auth if the page is
+  public.
+
+Conclusion: the skill systematizes the preflight (logging as a first-class
+channel, explicit readiness gate, `/goal` anchor) while preserving the strong
+baseline run/observe/investigate/iterate behavior. GREEN.
