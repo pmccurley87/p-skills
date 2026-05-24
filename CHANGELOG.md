@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-05-24]
+
+### pm v2.2.0
+- Added `pm-ensure-closed-loop` skill: before working a task iteratively, it establishes and presence-checks the prerequisites an agent needs to run and observe the task itself — execution environment, browser tooling, auth access, and logging (prefers victorialogs) — anchors observable success criteria via `/goal`, then drives a run→observe→investigate→iterate loop until the goal is met. Includes a readiness gate that stops before iterating blind, and adapts the channel set to each task rather than applying a fixed checklist. Use when you're tempted to start editing before confirming you can see what the code does.
+
 ## [2026-05-11]
 
 ### pm v2.1.0
