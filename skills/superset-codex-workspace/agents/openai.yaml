@@ -1,0 +1,4 @@
+interface:
+  display_name: "Superset Codex Workspace"
+  short_description: "Create and auto-open Superset Codex workspaces"
+  default_prompt: "Use $superset-codex-workspace to create a Superset Codex workspace and open it automatically."
