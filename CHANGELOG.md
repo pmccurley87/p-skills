@@ -2,6 +2,9 @@
 
 ## [2026-07-28]
 
+### pm v2.4.0
+- Added `pm-cursor-agents`: lets a frontier reasoning model plan and review while Cursor Composer 2.5 workers implement small, isolated changes from validated work packets, with shared-checkout file ownership, bounded retries, and final host-agent verification.
+
 ### pm v2.3.0
 - Added `pm-files-architecture`: traces the files that actually run a feature, identifies runtime policy and ownership boundaries, and produces an evidence-backed file-level plan before implementation.
 
