@@ -1,0 +1,4 @@
+interface:
+  display_name: "File Architecture"
+  short_description: "Trace live file ownership and change impact"
+  default_prompt: "Use $pm-files-architecture to trace the live file architecture and propose a safe file-level change plan."

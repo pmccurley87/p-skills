@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-07-28]
+
+### pm v2.3.0
+- Added `pm-files-architecture`: traces the files that actually run a feature, identifies runtime policy and ownership boundaries, and produces an evidence-backed file-level plan before implementation.
+
 ## [2026-05-24]
 
 ### pm v2.2.0
