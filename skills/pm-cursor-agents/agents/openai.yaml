@@ -1,4 +1,4 @@
 interface:
   display_name: "PM Cursor Agents"
-  short_description: "Delegate bounded edits to Cursor Composer 2.5"
-  default_prompt: "Use $pm-cursor-agents to delegate isolated implementation work to Cursor Composer 2.5 and review the resulting diff."
+  short_description: "Route bounded Cursor work through Composer or Grok"
+  default_prompt: "Use $pm-cursor-agents to route isolated implementation work to the appropriate Cursor worker while Sol retains architecture and final review."

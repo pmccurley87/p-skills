@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-07-29]
+
+### pm v2.5.0
+- Updated `pm-cursor-agents` with Sol High Fast orchestration and explicit worker routing: Composer 2.5 Fast for mechanical packets, Grok 4.5 High Fast for bounded logic-heavy implementation, and host takeback for architectural or high-risk work.
+- Added adversarial boundary-case guidance and closed-loop repair rules so worker completion remains evidence while the Sol host owns final acceptance.
+
 ## [2026-07-28]
 
 ### pm v2.4.0

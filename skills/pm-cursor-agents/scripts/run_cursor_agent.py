@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run a validated work packet through Cursor Composer 2.5."""
+"""Run a validated work packet through an explicit Cursor worker profile."""
 
 from __future__ import annotations
 
@@ -11,7 +11,10 @@ import sys
 from pathlib import Path
 
 
-MODEL = "composer-2.5"
+WORKER_MODELS = {
+    "composer": "composer-2.5-fast",
+    "grok": "cursor-grok-4.5-high-fast",
+}
 MACOS_CURSOR = Path("/Applications/Cursor.app/Contents/Resources/app/bin/cursor")
 REQUIRED_HEADINGS = (
     "Objective",
@@ -78,7 +81,7 @@ def read_and_validate_packet(packet_path: Path) -> str:
     return packet
 
 
-def check_cursor(cursor: Path) -> int:
+def check_cursor(cursor: Path, model: str) -> int:
     result = subprocess.run(
         [*agent_command(cursor), "--version"],
         text=True,
@@ -102,21 +105,27 @@ def check_cursor(cursor: Path) -> int:
         sys.stderr.write(model_output + "\n")
         return models.returncode
     model_lines = [line.strip() for line in model_output.splitlines() if line.strip()]
-    available = any(line.split(maxsplit=1)[0] == MODEL for line in model_lines)
+    available = any(line.split(maxsplit=1)[0] == model for line in model_lines)
     if not available:
-        sys.stderr.write(f"Required model is unavailable: {MODEL}\n")
+        sys.stderr.write(f"Required model is unavailable: {model}\n")
         return 1
-    print(f"Model available: {MODEL}")
+    print(f"Model available: {model}")
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Validate and run a bounded work packet with Cursor Composer 2.5."
+        description="Validate and run a bounded work packet with an explicit Cursor worker."
     )
     parser.add_argument("--workspace", type=Path, help="Repository checkout for the worker.")
     parser.add_argument("--packet", type=Path, help="Markdown work packet to execute.")
     parser.add_argument("--cursor-bin", help="Explicit Cursor or cursor-agent executable.")
+    parser.add_argument(
+        "--worker",
+        choices=tuple(WORKER_MODELS),
+        default="composer",
+        help="Worker profile: Composer for mechanical work; Grok for bounded logic-heavy work.",
+    )
     parser.add_argument(
         "--mode",
         choices=("agent", "ask", "plan"),
@@ -133,8 +142,9 @@ def main() -> int:
     args = parser.parse_args()
 
     cursor = resolve_cursor(args.cursor_bin)
+    model = WORKER_MODELS[args.worker]
     if args.check:
-        return check_cursor(cursor)
+        return check_cursor(cursor, model)
 
     if args.workspace is None or args.packet is None:
         parser.error("--workspace and --packet are required unless --check is used")
@@ -145,14 +155,14 @@ def main() -> int:
     packet = read_and_validate_packet(args.packet.expanduser().resolve())
 
     if args.dry_run:
-        print(f"Validated packet for {MODEL} in {workspace}")
+        print(f"Validated packet for {model} in {workspace}")
         return 0
 
     command = [
         *agent_command(cursor),
         "--print",
         "--model",
-        MODEL,
+        model,
         "--output-format",
         args.output_format,
         "--sandbox",
