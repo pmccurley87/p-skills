@@ -2,6 +2,9 @@
 
 ## [2026-07-29]
 
+### pm v2.6.0
+- Updated `pm-cursor-agents` completion reports to require an **Agents used** table listing every dispatched worker, model, selection rationale, runner-measured duration, and outcome; the runner now emits a stable stderr receipt with monotonic wall-clock timing without corrupting structured stdout.
+
 ### pm v2.5.0
 - Updated `pm-cursor-agents` with Sol High Fast orchestration and explicit worker routing: Composer 2.5 Fast for mechanical packets, Grok 4.5 High Fast for bounded logic-heavy implementation, and host takeback for architectural or high-risk work.
 - Added adversarial boundary-case guidance and closed-loop repair rules so worker completion remains evidence while the Sol host owns final acceptance.

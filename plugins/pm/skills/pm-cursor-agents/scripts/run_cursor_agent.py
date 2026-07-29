@@ -8,6 +8,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 
@@ -79,6 +80,30 @@ def read_and_validate_packet(packet_path: Path) -> str:
     if missing:
         raise SystemExit("Work packet is missing headings: " + ", ".join(missing))
     return packet
+
+
+def format_elapsed(seconds: float) -> str:
+    seconds = max(0.0, seconds)
+    if seconds < 1:
+        return f"{seconds:.3f}s"
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    total = int(round(seconds))
+    if total < 3600:
+        minutes, remainder = divmod(total, 60)
+        return f"{minutes}m{remainder:02d}s"
+    hours, remainder = divmod(total, 3600)
+    minutes, secs = divmod(remainder, 60)
+    return f"{hours}h{minutes:02d}m{secs:02d}s"
+
+
+def emit_receipt(worker: str, model: str, elapsed_seconds: float, exit_code: int) -> None:
+    elapsed = format_elapsed(elapsed_seconds)
+    line = (
+        f"PM_CURSOR_AGENT_RECEIPT worker={worker} model={model} "
+        f"elapsed_seconds={elapsed_seconds:.3f} elapsed={elapsed} exit_code={exit_code}"
+    )
+    sys.stderr.write(line + "\n")
 
 
 def check_cursor(cursor: Path, model: str) -> int:
@@ -175,7 +200,10 @@ def main() -> int:
         command.extend(["--mode", args.mode])
     command.append(f"{packet}\n\n{WORKER_CONTRACT}")
 
+    started = time.monotonic()
     completed = subprocess.run(command, check=False)
+    elapsed_seconds = time.monotonic() - started
+    emit_receipt(args.worker, model, elapsed_seconds, completed.returncode)
     return completed.returncode
 
 

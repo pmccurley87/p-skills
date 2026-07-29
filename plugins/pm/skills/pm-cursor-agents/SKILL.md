@@ -138,6 +138,28 @@ For read-only investigation, add `--mode ask`. Do not use read-only mode for an 
 
 Let the worker complete its own inspect → edit → test → fix loop. Do not interrupt it for routine progress updates.
 
+## Track every dispatched agent
+
+Record one row per Cursor worker invocation before writing the completion report. Follow-up or retry invocations are separate rows.
+
+For each dispatch, capture:
+
+- worker lane (`composer` or `grok`);
+- exact model identifier (`composer-2.5-fast` or `cursor-grok-4.5-high-fast`);
+- concise selection rationale (why this lane fit the packet);
+- runner-measured elapsed time;
+- outcome (success, non-zero exit, escalation, host takeback, or other).
+
+The runner prints a stderr receipt after each worker subprocess finishes:
+
+```text
+PM_CURSOR_AGENT_RECEIPT worker=composer model=composer-2.5-fast elapsed_seconds=142.317 elapsed=2m22s exit_code=0
+```
+
+Parse `elapsed_seconds` and `elapsed` from that receipt as authoritative wall-clock duration. Do not estimate duration from chat timestamps when a receipt exists.
+
+If no Cursor worker was dispatched, state that explicitly in the completion report.
+
 ## Orchestrate multiple workers in one checkout
 
 The host agent owns concurrency control. Workers may share the same checkout when their complete write surfaces are disjoint.
@@ -184,7 +206,21 @@ The host agent always performs the final review. Worker completion is evidence, 
 
 ## Completion report
 
-Report to the user:
+Start every completion report with an **Agents used** table, then the remaining details.
+
+If no Cursor worker ran, say so explicitly instead of showing an empty table.
+
+| Worker | Model | Why selected | Duration | Outcome |
+| --- | --- | --- | --- | --- |
+| composer | composer-2.5-fast | Mechanical field propagation in two files | 2m 22s (runner) | Success — exit 0 |
+| grok | cursor-grok-4.5-high-fast | Bounded invariant logic across three modules | 8m 41s (runner) | Non-zero exit — host took over |
+
+Duration rules:
+
+- Prefer runner receipt values (`elapsed` for display, `elapsed_seconds` when precision matters). Label them `(runner)`.
+- If runner evidence is unavailable, use host-measured wall time and label it `(host-measured)`. Never present host estimates as runner evidence.
+
+After the table, report:
 
 - what was delegated and why it was suitable;
 - what changed;
