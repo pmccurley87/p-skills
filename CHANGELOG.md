@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-08-04]
+
+### pm v2.7.0
+- Added `pm-browser-ego`: uses ego-browser for website automation and proactively operates LastPass through Computer Use when authentication is required, while preserving credential secrecy and task-space ownership.
+
 ## [2026-07-29]
 
 ### pm v2.6.0

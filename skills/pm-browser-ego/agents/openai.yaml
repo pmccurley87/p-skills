@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Browser Ego"
+  short_description: "Browse sites and sign in with LastPass"
+  default_prompt: "Use $pm-browser-ego to complete this website task and use LastPass if sign-in is needed."
