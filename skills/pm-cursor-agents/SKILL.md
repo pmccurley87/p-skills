@@ -1,11 +1,11 @@
 ---
 name: pm-cursor-agents
-description: Orchestrate coding work with GPT-5.6 Sol High Fast as planner and reviewer while explicit Cursor CLI worker lanes use Composer 2.5 Fast for mechanical changes or Grok 4.5 High Fast for bounded logic-heavy implementation. Use when the user asks to delegate isolated edits, tests, refactors, or routine implementation while retaining architectural control and final acceptance in the host agent. Do not use for ambiguous product decisions, broad architecture changes, public-interface redesigns, or high-risk operations.
+description: Use when coding work contains bounded, verifiable discovery, implementation, testing, refactoring, or repair that Cursor CLI workers can execute under a host agent's architectural control.
 ---
 
 # PM Cursor Agents
 
-Use GPT-5.6 Sol High Fast as the host orchestrator when model selection is available. Route mechanical packets to Cursor Composer 2.5 Fast and bounded logic-heavy packets to Cursor Grok 4.5 High Fast. Keep architecture, acceptance, and final correction in the host.
+Use Sol as the host orchestrator when model selection is available. Sol owns the decisions that shape the work; Cursor workers should do as much of the straightforward evidence gathering and execution as practical.
 
 The unit of delegation is an executable work packet, not a prose plan. The selected worker receives enough context to inspect, edit, test, and repair straightforward failures without returning after every step.
 
@@ -17,11 +17,13 @@ The host agent owns:
 - identifying and preserving pre-existing changes;
 - public interfaces and cross-cutting design decisions;
 - acceptance criteria and scope boundaries;
-- reviewing the resulting diff and independently verifying it;
+- choosing a current worker model based on task complexity, urgency, cost, and available models;
+- risk-proportional review and independent verification;
 - commits, merges, pushes, and user communication.
 
 The selected worker owns:
 
+- bounded repository discovery and factual code-path mapping;
 - inspecting the files named in its packet;
 - implementing the bounded change;
 - adding or updating the specified tests;
@@ -29,21 +31,24 @@ The selected worker owns:
 - fixing ordinary implementation or test failures within scope;
 - returning a concise completion report.
 
-Do not delegate architecture discovery and implementation as one vague task. Resolve the design first, then delegate the mechanical slice.
+Sol does not need to rediscover implementation details that a bounded worker can inspect and report. The host should inspect repository instructions, dirty state, relevant public boundaries, and enough code to fix the contract and scope. Delegate deeper factual tracing when it does not itself decide architecture.
+
+When a task contains executable worker work, delegation is the default. If Sol keeps otherwise straightforward discovery, implementation, tests, or repair, it must have a concrete reason such as coupling, risk, ambiguous behavior, or delegation overhead exceeding the work.
 
 ## Choose the worker lane
 
-Choose the lane after resolving requirements and inspecting the relevant code:
+Choose the worker family after resolving requirements and inspecting the relevant boundary:
 
-- Use `composer` for exact, mechanical work: localized refactors, field propagation, routine tests, explicit validation cases, and isolated UI or API adjustments.
-- Use `grok` for bounded work that still needs local reasoning: stateful business logic, interacting invariants, parsing, normalization, batch processing, atomic error handling, or a small multi-file implementation with a fixed public contract.
+- Use `quick` for factual discovery, documentation, routine tests, and tiny deterministic edits with objective verification.
+- Use `composer` for agentic implementation: localized refactors, field propagation, validation cases, and isolated UI or API adjustments.
+- Use `grok` for bounded work that needs more local reasoning: stateful business logic, interacting invariants, parsing, normalization, batch processing, atomic error handling, or a small multi-file implementation with a fixed public contract.
 - Keep the work in Sol when the main difficulty is architecture, public-interface design, security, concurrency, migrations, money or data integrity, or ambiguous behavior.
 
-Prefer the least expensive lane that can complete the fixed packet. Do not use a stronger worker to compensate for an unresolved design. Do not silently change lanes after dispatch.
+Refer to model families, not pinned versions. Before dispatch, query the Cursor CLI for current models and let Sol choose the exact available model, reasoning effort, and standard or fast tier. Prefer the least expensive choice likely to finish correctly; use fast tiers when elapsed time materially matters. Do not use a stronger worker to compensate for an unresolved design or silently change the selected model after dispatch.
 
 ## Decide whether to delegate
 
-Delegate only when all of these are true:
+Delegate an implementation packet when all of these are true:
 
 - The desired behavior and acceptance criteria are concrete.
 - Expected edits are small and can be assigned to a clear file set.
@@ -51,24 +56,25 @@ Delegate only when all of these are true:
 - The change does not require credentials, production access, destructive operations, or policy judgment.
 - The worker can finish without changing public interfaces or architecture.
 
-Keep the work in the host agent when requirements are ambiguous, the change spans tightly coupled subsystems, security or data-loss risk is material, or the main work is deciding what should exist.
+Even when implementation must remain in Sol, delegate bounded read-only evidence gathering or test discovery when it can reduce host context without outsourcing the decision. Keep the core work in Sol when requirements are ambiguous, the change spans tightly coupled subsystems, security or data-loss risk is material, or the main work is deciding what should exist.
 
 ## Preflight the repository
 
 Before dispatching:
 
-1. Read the repository instructions and relevant implementation files.
+1. Read repository instructions, relevant public boundaries, and only enough implementation to define the contract and packet.
 2. Run `git status --short` and inspect existing diffs. Treat all existing changes as user-owned.
 3. Select the exact files the worker may inspect and the files it is expected to change.
 4. Establish an objective verification command.
-5. Confirm the Cursor CLI and model are available:
+5. List the currently available models for the selected family, choose one, and confirm it explicitly:
 
 ```bash
-python3 <skill-directory>/scripts/run_cursor_agent.py --worker composer --check
-python3 <skill-directory>/scripts/run_cursor_agent.py --worker grok --check
+python3 <skill-directory>/scripts/run_cursor_agent.py --worker <quick|composer|grok> --check
+python3 <skill-directory>/scripts/run_cursor_agent.py \
+  --worker <family> --model <selected-model-id> --check
 ```
 
-Check only the selected lane when dispatching one worker. If its exact model is unavailable or the user is not authenticated, report that blocker. Do not silently substitute another model, effort, or standard-speed tier.
+Check only the selected family when dispatching one worker. If the chosen model is unavailable or the user is not authenticated, report that blocker and make a new explicit selection; do not silently substitute a model, effort, or speed tier.
 
 ## Write the executable work packet
 
@@ -114,25 +120,27 @@ For data boundaries and validation logic, enumerate adversarial cases that are p
 
 ## Dispatch the selected Cursor worker
 
-Run one worker in the target checkout. Composer remains the default for backward compatibility:
+Run one worker in the target checkout with the exact model Sol selected at runtime:
 
 ```bash
 python3 <skill-directory>/scripts/run_cursor_agent.py \
   --worker composer \
+  --model <selected-composer-model-id> \
   --workspace /absolute/path/to/repository \
   --packet /absolute/path/to/work-packet.md
 ```
 
-For a bounded logic-heavy packet, select Grok explicitly:
+For another family, change both the worker family and selected model:
 
 ```bash
 python3 <skill-directory>/scripts/run_cursor_agent.py \
   --worker grok \
+  --model <selected-grok-model-id> \
   --workspace /absolute/path/to/repository \
   --packet /absolute/path/to/work-packet.md
 ```
 
-The runner validates the packet, resolves the Cursor executable, selects exactly `composer-2.5-fast` or `cursor-grok-4.5-high-fast`, enables Cursor's sandbox, and prevents force mode. It also tells the worker not to commit or push. Fast variants cost more than standard-speed tiers; use them intentionally to minimize worker latency.
+The runner validates the packet, resolves the Cursor executable, verifies that the selected model is currently available and belongs to the declared family, enables Cursor's sandbox, and prevents force mode. It also tells the worker not to commit or push.
 
 For read-only investigation, add `--mode ask`. Do not use read-only mode for an implementation packet.
 
@@ -144,8 +152,8 @@ Record one row per Cursor worker invocation before writing the completion report
 
 For each dispatch, capture:
 
-- worker lane (`composer` or `grok`);
-- exact model identifier (`composer-2.5-fast` or `cursor-grok-4.5-high-fast`);
+- worker family (`quick`, `composer`, or `grok`);
+- exact runtime-selected model identifier;
 - concise selection rationale (why this lane fit the packet);
 - runner-measured elapsed time;
 - outcome (success, non-zero exit, escalation, host takeback, or other).
@@ -153,7 +161,7 @@ For each dispatch, capture:
 The runner prints a stderr receipt after each worker subprocess finishes:
 
 ```text
-PM_CURSOR_AGENT_RECEIPT worker=composer model=composer-2.5-fast elapsed_seconds=142.317 elapsed=2m22s exit_code=0
+PM_CURSOR_AGENT_RECEIPT worker=composer model=<runtime-selected-model> elapsed_seconds=142.317 elapsed=2m22s exit_code=0
 ```
 
 Parse `elapsed_seconds` and `elapsed` from that receipt as authoritative wall-clock duration. Do not estimate duration from chat timestamps when a receipt exists.
@@ -183,16 +191,15 @@ For each packet:
 
 Launch independent packets concurrently against the same `--workspace`. If ownership overlaps or cannot be predicted confidently, serialize those packets. The host agent retains commits, pushes, and final integration.
 
-## Review and escalation loop
+## Review in proportion to risk
 
-After the worker returns:
+After every worker returns, Sol inspects the complete diff for scope, user-change preservation, and acceptance-criteria coverage, then independently runs the relevant verification. Review depth depends on the work:
 
-1. Inspect `git status` and the complete diff. Flag changes outside the packet.
-2. Check the implementation against every acceptance criterion.
-3. Run the relevant verification independently; do not rely only on the worker's report.
-4. Review correctness, regressions, security, and preservation of user changes.
-5. If review finds a small, mechanically obvious defect, either correct it directly in the host or send one follow-up packet containing the exact failure evidence and unchanged scope.
-6. If the same criterion fails a second time, stop delegating that issue and take it back into the host agent.
+- For straightforward deterministic work, audit changed paths and the diff, check every criterion, and rerun focused verification. Do not repeat the worker's repository investigation without evidence of a problem.
+- For bounded logic-heavy work, also perform a semantic review of invariants, edge cases, and regression risk.
+- For security, concurrency, migrations, money, or data-integrity work, Sol owns the design and core acceptance; worker output is supporting evidence or bounded implementation only.
+
+If review finds a small, mechanically obvious defect, either correct it directly in the host or send one follow-up packet containing the exact failure evidence and unchanged scope. If the same criterion fails a second time, stop delegating that issue and take it back into Sol.
 
 Immediately return control to the host agent when:
 
@@ -202,7 +209,7 @@ Immediately return control to the host agent when:
 - the worker requests scope outside its packet;
 - the worker changes unrelated or user-owned code.
 
-The host agent always performs the final review. Worker completion is evidence, not acceptance. Optimize the complete plan → implement → review → repair → verify loop, not first-pass worker acceptance alone.
+Sol always performs final acceptance. Worker completion is evidence, not acceptance. Optimize the complete decide → delegate → accept loop, not the amount of work performed by Sol or the worker in isolation.
 
 ## Completion report
 
@@ -212,8 +219,8 @@ If no Cursor worker ran, say so explicitly instead of showing an empty table.
 
 | Worker | Model | Why selected | Duration | Outcome |
 | --- | --- | --- | --- | --- |
-| composer | composer-2.5-fast | Mechanical field propagation in two files | 2m 22s (runner) | Success — exit 0 |
-| grok | cursor-grok-4.5-high-fast | Bounded invariant logic across three modules | 8m 41s (runner) | Non-zero exit — host took over |
+| composer | `<runtime-selected model>` | Mechanical field propagation in two files | 2m 22s (runner) | Success — exit 0 |
+| grok | `<runtime-selected model>` | Bounded invariant logic across three modules | 8m 41s (runner) | Non-zero exit — Sol took over |
 
 Duration rules:
 

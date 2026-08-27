@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-08-27]
+
+### pm v2.8.0
+- Updated `pm-cursor-agents` to keep Sol as the architectural and acceptance host while delegating straightforward discovery, implementation, tests, and repair more aggressively; worker models are now selected from current Cursor model families at runtime instead of pinned versions, with risk-proportional host review.
+
 ## [2026-08-04]
 
 ### pm v2.7.0
