@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-09-06]
+
+### pm v2.9.0
+- Added `pm-subagents`: cost-aware native agent orchestration with disjoint parallel work, scoped reviews, and continued repair within the approved scope.
+- `pm-subagents` can use `pm-cursor-agents` when selected and presents captured product evidence and verification at completion unless requested otherwise.
+
 ## [2026-08-27]
 
 ### pm v2.8.0
