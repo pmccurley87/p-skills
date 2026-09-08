@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Handover"
+  short_description: "Checkpoint unfinished work for another agent or machine"
+  default_prompt: "Use $pm-handover to publish the current task checkpoint and prepare instructions for another agent to continue on another machine."

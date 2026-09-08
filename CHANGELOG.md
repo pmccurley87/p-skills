@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-09-08]
+
+### pm v2.10.0
+- Added `pm-handover`: publish unfinished task work on a separate checkpoint branch with context, setup instructions, and a copyable prompt for another agent or machine.
+- Preserves the source checkout and staged edits, verifies the pushed commit, and uses existing destination Git credentials first.
+
 ## [2026-09-06]
 
 ### pm v2.9.0
