@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-09-17]
+
+### pm v2.11.0
+- Added `pm:smart-orchestration` to choose bounded sub-agent work and the least costly capable model while accounting for dispatch, retries, and review.
+
 ## [2026-09-08]
 
 ### pm v2.10.0
