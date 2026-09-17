@@ -2,6 +2,9 @@
 
 ## [2026-09-17]
 
+### pm v2.11.1
+- `pm:smart-orchestration` now requires Luna high or max, and Terra and Sol at medium or higher whenever it selects those models.
+
 ### pm v2.11.0
 - Added `pm:smart-orchestration` to choose bounded sub-agent work and the least costly capable model while accounting for dispatch, retries, and review.
 
