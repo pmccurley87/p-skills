@@ -5,7 +5,7 @@ description: Use when a task has separable work and the user wants to reduce exp
 
 # Smart Orchestration
 
-Optimize total token cost and time to a correct result, including dispatch, retries, integration, and review. The current agent remains responsible for the user's goal; a capable host such as Astra or Sol may delegate bounded work to cheaper models.
+Optimize total token cost and time to a correct result, including dispatch, retries, integration, and review. Keep one master host responsible for orchestration and final sign-off. When host selection is available, prefer the strongest suitable available model, such as Astra or Sol, and delegate bounded execution to cheaper models. If the current host cannot be changed, it remains the master; never imply a model switch occurred.
 
 ## Decide whether to delegate
 
@@ -19,6 +19,6 @@ Check the models and tools actually available at dispatch. Choose the least cost
 
 When selecting a host or worker, set these minimum reasoning efforts explicitly: Luna at **high** or **max**; Terra at **medium** or higher; Sol at **medium** or higher. Choose higher effort when the packet needs it. If the dispatch tool cannot select or verify the required effort, do not dispatch that model for the packet; choose another available configuration or keep the work with the current host. Do not claim to have changed an already running host's settings.
 
-Give workers only the necessary context, files, constraints, and expected output. Ask for a concise result with evidence rather than a transcript. Avoid duplicating the whole conversation in each agent. The host reviews outputs, resolves conflicts, verifies the integrated result, and owns any external action. If delegation fails or needs repeated repair, reassess the model or take the work back; do not keep paying for retries without a clear path to completion.
+Give workers only the necessary context, files, constraints, and expected output. Ask for a concise result with evidence rather than a transcript. Avoid duplicating the whole conversation in each agent. The master host reviews worker outputs, resolves conflicts, verifies the integrated result against the user's request, and personally gives the final sign-off. A worker's completion or review is evidence, never the final acceptance. The host also owns any external action. If delegation fails or needs repeated repair, reassess the model or take the work back; do not keep paying for retries without a clear path to completion.
 
 Follow explicit user choices about models, budget, delegation, and deadlines. Never invent token or cost savings; report measured figures only when available.

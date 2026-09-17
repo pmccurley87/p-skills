@@ -2,6 +2,9 @@
 
 ## [2026-09-17]
 
+### pm v2.11.2
+- `pm:smart-orchestration` keeps orchestration and final sign-off with the master host, favoring the strongest suitable model when host selection is available.
+
 ### pm v2.11.1
 - `pm:smart-orchestration` now requires Luna high or max, and Terra and Sol at medium or higher whenever it selects those models.
 
