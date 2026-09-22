@@ -71,3 +71,27 @@ export function eligibility(decision, {preferredWorker = null} = {}) {
   }
   return {eligible: true, reason: 'eligible', worker};
 }
+
+export function dispatchRoute(decision, {preferredWorker = null} = {}) {
+  const agent = preferredWorker ?? decision.worker;
+  const blocked = reason => ({
+    eligible: false,
+    reason,
+    kind: null,
+    agent: ['codex', 'claude'].includes(agent) ? agent : null,
+    pattern: decision.recommendedPattern,
+  });
+  if (!['codex', 'claude'].includes(agent)) return blocked('unsupported_worker');
+  if (decision.size === 'unknown') return blocked('scope_unknown');
+  if (decision.needsClarification) return blocked('needs_clarification');
+  const kind = decision.recommendedPattern === 'triage_worker' && decision.size !== 'large'
+    ? 'single_worker'
+    : 'smart_master';
+  return {
+    eligible: true,
+    reason: 'eligible',
+    kind,
+    agent,
+    pattern: decision.recommendedPattern,
+  };
+}

@@ -140,6 +140,26 @@ test('rejects malformed, invalid, empty, and unexpected-model responses', async 
   );
 });
 
+test('route-only triage accepts a packet before file ownership is known', async () => {
+  const sent = {};
+  const fetchImpl = async (_url, options) => {
+    sent.body = JSON.parse(options.body);
+    return response({
+      id: 'route-fixture',
+      model: 'meta/muse-spark-1.3-contributor',
+      choices: [{message: {content: JSON.stringify(base)}}],
+    });
+  };
+  const result = await triage({
+    task: 'Fix a cross-cutting checkout race.',
+    contextSummary: 'Repository is known but affected files require discovery.',
+    acceptance: ['Regression test passes.'],
+    preferredWorker: null,
+  }, {apiKey: 'fixture-key', fetchImpl, requireAllowedPaths: false});
+  assert.equal(result.decision.recommendedPattern, 'triage_worker');
+  assert.equal(JSON.parse(sent.body.messages[1].content).allowedPaths, undefined);
+});
+
 test('turns HTTP and abort failures into typed errors without retrying', async () => {
   let calls = 0;
   const unauthorized = async () => { calls += 1; return response({error: {message: 'no'}}, 401); };

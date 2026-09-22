@@ -2,6 +2,11 @@
 
 ## [2026-09-22]
 
+### pm v2.13.0
+- Added `pm:orca-dispatch` as a single Orca intake command that uses Muse routing to launch either one supervised worker or a stronger `smart-orchestration` master without manual workspace or agent selection.
+- Added stateless composition routing to `pm:orca-triage`, including typed single-worker, smart-master, and blocked results before file ownership is known.
+- Updated `pm:smart-orchestration` to use native Orca Runs, Tasks, dependencies, and workers when launched by the dispatcher or when Orca-managed delegation is requested.
+
 ### pm v2.12.0
 - Added `pm:orca-triage` for direct Muse Spark 1.3 Contributor classification and guarded assignment of one supervised Codex or Claude worker through Orca.
 - Bundles a dependency-free helper with strict structured output, workspace-scoped state, path and concurrency gates, durable launch receipts, and evidence-gated cleanup.

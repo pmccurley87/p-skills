@@ -6,7 +6,7 @@ import {homedir} from 'node:os';
 import {fileURLToPath} from 'node:url';
 import {join, resolve} from 'node:path';
 
-import {eligibility} from '../src/contract.mjs';
+import {dispatchRoute, eligibility} from '../src/contract.mjs';
 import {callOrca, startSelectedWorker} from '../src/orca.mjs';
 import {createStore, validateAllowedPaths} from '../src/store.mjs';
 import {loadApiKey, triage} from '../src/triage.mjs';
@@ -98,6 +98,21 @@ export async function main(
     });
     return writeJson(writeOut, record);
   }
+  if (command === 'route') {
+    if (!flags.input) throw typedError('arguments_invalid', 'route requires --input');
+    const packet = JSON.parse(await readFileImpl(flags.input, 'utf8'));
+    const apiKey = await loadKeyFn({env});
+    const triageReceipt = await triageFn(packet, {apiKey, requireAllowedPaths: false});
+    const route = dispatchRoute(triageReceipt.decision, {
+      preferredWorker: packet.preferredWorker,
+    });
+    return writeJson(writeOut, {
+      state: route.eligible ? 'routed' : 'blocked',
+      packet,
+      triage: triageReceipt,
+      route,
+    });
+  }
   if (command === 'start') {
     if (!flags.record) throw typedError('arguments_invalid', 'start requires --record');
     const record = await activeStore.readRecord(flags.record);
@@ -138,7 +153,7 @@ export async function main(
     await activeStore.releaseLock(record.id);
     return writeJson(writeOut, result);
   }
-  throw typedError('arguments_invalid', 'Command must be triage, start, inspect, or finish');
+  throw typedError('arguments_invalid', 'Command must be route, triage, start, inspect, or finish');
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

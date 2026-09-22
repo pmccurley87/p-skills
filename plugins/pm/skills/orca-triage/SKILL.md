@@ -7,7 +7,17 @@ description: Use when assigning a bounded task through Orca and cheap model-base
 
 Classify work with the exact OpenRouter model `meta/muse-spark-1.3-contributor`, then let deterministic code decide whether one Orca worker may start. OpenCode is not an execution layer; its stored OpenRouter key is only a credential fallback when `OPENROUTER_API_KEY` is absent.
 
-Only `triage_worker` is executable. `discovery_implement`, `implement_review_repair`, `parallel_implementation`, and `research_synthesis` are recommendations for the user. Never launch them through this skill.
+For direct use of this skill, only `triage_worker` is executable. `discovery_implement`, `implement_review_repair`, `parallel_implementation`, and `research_synthesis` remain advisory. The separate `orca-dispatch` skill may consume the stateless route interface below and transfer a larger pattern to a master; that is composition, not bypassing this skill's guarded start.
+
+## Stateless composition
+
+When `orca-dispatch` requests classification, accept a packet with `task`, `contextSummary`, nonempty `acceptance`, and `preferredWorker`. File ownership may be unknown. Run:
+
+```sh
+node "$PILOT" route --input <packet.json>
+```
+
+This writes no pilot record and starts nothing. Its `route.kind` is `single_worker`, `smart_master`, or `null` when blocked. Only `orca-dispatch` may materialize that receipt; ordinary direct use continues with the guarded workflow below.
 
 ## Prepare
 

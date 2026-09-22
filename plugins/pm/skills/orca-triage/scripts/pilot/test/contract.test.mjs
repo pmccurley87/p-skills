@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   PATTERNS,
   TRIAGE_SCHEMA,
+  dispatchRoute,
   eligibility,
   validateDecision,
 } from '../src/contract.mjs';
@@ -68,6 +69,60 @@ test('explicit supported worker preference overrides the recommendation', () => 
     reason: 'eligible',
     worker: 'claude',
   });
+});
+
+test('dispatch route keeps bounded work with one supervised worker', () => {
+  assert.deepEqual(dispatchRoute(base), {
+    eligible: true,
+    reason: 'eligible',
+    kind: 'single_worker',
+    agent: 'codex',
+    pattern: 'triage_worker',
+  });
+});
+
+test('dispatch route transfers larger orchestration patterns to a master', () => {
+  assert.deepEqual(
+    dispatchRoute({...base, size: 'large', recommendedPattern: 'parallel_implementation', worker: 'claude'}),
+    {
+      eligible: true,
+      reason: 'eligible',
+      kind: 'smart_master',
+      agent: 'claude',
+      pattern: 'parallel_implementation',
+    },
+  );
+});
+
+test('dispatch route sends discoverable uncertainty to a smart master', () => {
+  assert.deepEqual(
+    dispatchRoute({
+      ...base,
+      size: 'medium',
+      recommendedPattern: 'implement_review_repair',
+      uncertainties: ['Exact code path and reproduction steps'],
+    }),
+    {
+      eligible: true,
+      reason: 'eligible',
+      kind: 'smart_master',
+      agent: 'codex',
+      pattern: 'implement_review_repair',
+    },
+  );
+});
+
+test('dispatch route blocks when Muse says user clarification is required', () => {
+  assert.deepEqual(
+    dispatchRoute({...base, needsClarification: true, uncertainties: ['Repository is unknown']}),
+    {
+      eligible: false,
+      reason: 'needs_clarification',
+      kind: null,
+      agent: 'codex',
+      pattern: 'triage_worker',
+    },
+  );
 });
 
 test('rejects unsupported preferred workers', () => {

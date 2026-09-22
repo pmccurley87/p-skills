@@ -52,6 +52,36 @@ test('triage command records a decision without starting a worker', async () => 
   assert.match(outputs[0], /triaged/);
 });
 
+test('route command returns a stateless master handoff without creating a pilot record', async () => {
+  let creates = 0;
+  const store = {
+    async createRecord() { creates += 1; throw new Error('route must be stateless'); },
+  };
+  const outputs = [];
+  const result = await main(['route', '--input', '/fixture/task.json'], {
+    store,
+    readFileImpl: async () => JSON.stringify({
+      task: 'Fix a cross-cutting checkout race.',
+      contextSummary: 'Emberflow repository.',
+      acceptance: ['Regression test passes.'],
+      preferredWorker: null,
+    }),
+    loadKeyFn: async () => 'key',
+    triageFn: async (_packet, options) => {
+      assert.equal(options.requireAllowedPaths, false);
+      return {
+        decision: {...decision, size: 'large', recommendedPattern: 'parallel_implementation'},
+        requestedModel: 'meta/muse-spark-1.3-contributor',
+      };
+    },
+    writeOut: value => outputs.push(value),
+  });
+  assert.equal(creates, 0);
+  assert.equal(result.route.kind, 'smart_master');
+  assert.equal(result.route.agent, 'codex');
+  assert.match(outputs[0], /smart_master/);
+});
+
 test('start command delegates exactly once through the guarded start function', async () => {
   const seed = {id: '11111111-1111-4111-8111-111111111111', state: 'triaged'};
   const store = memoryStore(seed);

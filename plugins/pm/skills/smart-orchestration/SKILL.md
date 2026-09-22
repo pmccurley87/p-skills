@@ -22,3 +22,9 @@ When selecting a host or worker, set these minimum reasoning efforts explicitly:
 Give workers only the necessary context, files, constraints, and expected output. Ask for a concise result with evidence rather than a transcript. Avoid duplicating the whole conversation in each agent. The master host reviews worker outputs, resolves conflicts, verifies the integrated result against the user's request, and personally gives the final sign-off. A worker's completion or review is evidence, never the final acceptance. The host also owns any external action. If delegation fails or needs repeated repair, reassess the model or take the work back; do not keep paying for retries without a clear path to completion.
 
 Follow explicit user choices about models, budget, delegation, and deadlines. Never invent token or cost savings; report measured figures only when available.
+
+## Orca execution backend
+
+When launched by `orca-dispatch`, or when the user asks for workers visible and managed in Orca, **REQUIRED SUB-SKILL:** use `orchestration`. The current master creates and coordinates the native Orca Run, Tasks, dependencies, and Dispatches. Do not substitute a platform-native subagent system while the Orca runtime can dispatch the work.
+
+Keep the master workspace as the control plane and create worker worktrees only when isolation or competing edits justify them. Start the complete independent ready wave before waiting. The master still owns integration, verification, external actions, and final sign-off. If Orca is unavailable, report that blocker rather than silently changing backends.
