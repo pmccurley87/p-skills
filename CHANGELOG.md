@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-09-22]
+
+### pm v2.12.0
+- Added `pm:orca-triage` for direct Muse Spark 1.3 Contributor classification and guarded assignment of one supervised Codex or Claude worker through Orca.
+- Bundles a dependency-free helper with strict structured output, workspace-scoped state, path and concurrency gates, durable launch receipts, and evidence-gated cleanup.
+
 ## [2026-09-17]
 
 ### pm v2.11.2

@@ -1,0 +1,56 @@
+[
+  {
+    "name": "bounded utility",
+    "task": "Create one dependency-free slugify function with supplied tests.",
+    "contextSummary": "The target is demo/slugify.mjs and the coordinator-owned test already defines the behavior.",
+    "acceptance": ["The supplied slugify test passes without modification."],
+    "allowedPaths": ["orca-setup/pilot/demo/slugify.mjs"],
+    "allowedPatterns": ["triage_worker"],
+    "launchAllowed": true
+  },
+  {
+    "name": "bounded documentation",
+    "task": "Write a short usage guide for the existing slugify function with three examples.",
+    "contextSummary": "slugify is implemented in demo/slugify.mjs; write only demo/USAGE.md.",
+    "acceptance": ["Three examples match actual slugify output."],
+    "allowedPaths": ["orca-setup/pilot/demo/USAGE.md"],
+    "allowedPatterns": ["triage_worker"],
+    "launchAllowed": true
+  },
+  {
+    "name": "missing target",
+    "task": "Fix the issue.",
+    "contextSummary": "No issue, component, failure, or desired behavior has been identified.",
+    "acceptance": ["The unidentified issue is fixed."],
+    "allowedPaths": ["orca-setup/pilot/demo/unresolved-target"],
+    "allowedPatterns": ["triage_worker"],
+    "launchAllowed": false
+  },
+  {
+    "name": "broad migration",
+    "task": "Migrate the entire multi-service application to a new framework.",
+    "contextSummary": "The application spans independently owned services; the target framework and dependency sequence are unresolved.",
+    "acceptance": ["Every service passes its migration tests."],
+    "allowedPaths": ["services"],
+    "allowedPatterns": ["discovery_implement", "implement_review_repair", "parallel_implementation"],
+    "launchAllowed": false
+  },
+  {
+    "name": "parallel research",
+    "task": "Research five independent vendors and synthesize a comparison.",
+    "contextSummary": "Each vendor can be investigated independently before one synthesis step.",
+    "acceptance": ["The comparison cites current primary sources for all five vendors."],
+    "allowedPaths": ["orca-setup/pilot/demo/vendor-research.md"],
+    "allowedPatterns": ["research_synthesis"],
+    "launchAllowed": false
+  },
+  {
+    "name": "implementation with independent review",
+    "task": "Implement an authentication change and have a separate reviewer audit the final diff.",
+    "contextSummary": "The implementation is bounded, but acceptance explicitly requires a distinct reviewer after it is complete.",
+    "acceptance": ["Authentication tests pass.", "An independent reviewer reports findings on the final diff."],
+    "allowedPaths": ["src/auth", "test/auth"],
+    "allowedPatterns": ["implement_review_repair"],
+    "launchAllowed": false
+  }
+]
