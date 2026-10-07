@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-10-07]
+
+### pm v2.13.1
+- Fixed `pm-browser-ego` sign-in guidance: use saved-login fill controls or authorized existing credentials without redundant confirmation. Keep secrets out of output and preserve required confirmation for credential changes, access grants, and human verification.
+
 ## [2026-09-22]
 
 ### pm v2.13.0
