@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Gauntlet Loop"
+  short_description: "Improve artifacts against a concrete quality bar"
+  default_prompt: "Use $pm-gauntlet-loop to improve this against the current version."

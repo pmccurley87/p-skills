@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-10-18]
+
+### pm v2.14.0
+- Added `pm-gauntlet-loop`: turn a goal into a concrete-reference improvement loop, or run an authorized loop with independent criticism and retained evidence.
+- Added `pm-adversary`: combine independent Astra and Claude Opus 5.5 reviews, verify findings against source, and distinguish static approval from tested outcomes. Composes with Gauntlet without nested loops or extra routing machinery.
+
 ## [2026-10-07]
 
 ### pm v2.13.1
