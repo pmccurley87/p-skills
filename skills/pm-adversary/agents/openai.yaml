@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Adversary"
+  short_description: "Independent Astra and Opus 5.5 adversarial review"
+  default_prompt: "Use $pm-adversary to review these changes for lost capability, overengineering and overfitting."
