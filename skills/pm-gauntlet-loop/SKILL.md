@@ -41,4 +41,4 @@ Use the host's supported agent tools. This is an active work loop, not a request
 
 ## Compose with pm-adversary
 
-When the user also requests `pm-adversary`, load [its instructions](../pm-adversary/SKILL.md). Gauntlet still owns the reference, builder and iteration. Adversary supplies Astra and Opus 5.5 as independent critics of the same candidate. Do not start a second nested improvement loop or assume the two agreeing replaces verification.
+When the user also requests `pm-adversary`, load [its instructions](../pm-adversary/SKILL.md). Gauntlet still owns the reference, builder and iteration. Adversary verifies accounts and remaining allowances, then supplies one OpenAI critic (Astra or GPT-6.1 Sol) and one Claude critic (Fable or Opus 5.5) for the same candidate. Do not start a second nested improvement loop or assume the two agreeing replaces verification.
