@@ -2,6 +2,9 @@
 
 ## [2026-10-20]
 
+### pm v2.16.0
+- Added `pm-claimit-invoices` to retrieve Patrick’s expense invoices, inspect billing details, and deliver approved PDFs from `patrick@claimit.ai` to `finance@claimit.ai`, with exact-recipient and sent-copy checks. Includes OpenAI account routing and authorized future billing corrections.
+
 ### pm v2.15.0
 - Updated `pm-adversary` to verify reviewer accounts and live remaining weekly allowances before dispatch: use Fable on `patrick@xdelivered.com` above 40% Fable remaining, otherwise Opus 5.5; use Astra at 50% or more Codex weekly remaining, otherwise GPT-6.1 Sol. Reports the account, usage evidence and model choice, and stops on missing identity or usage instead of guessing.
 - Updated `pm-gauntlet-loop` composition to use the reviewers selected by Adversary.

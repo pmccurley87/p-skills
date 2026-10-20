@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Claimit Invoices"
+  short_description: "Retrieve and email Patrick’s Claimit expense invoices"
+  default_prompt: "Use $pm-claimit-invoices to download my requested invoices and prepare them from patrick@claimit.ai to finance@claimit.ai."
