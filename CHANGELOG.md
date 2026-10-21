@@ -2,6 +2,9 @@
 
 ## [2026-10-21]
 
+### pm v2.18.0
+- Added `pm-jira-complete`: announce a finished Jira ticket with one plain-English release line in your team's Slack channel, posted through ego-browser, with a duplicate-announcement check. Channel and Jira site come from a local `~/.claude/pm-jira-complete.json` that never ships with the skill. Closing the ticket in Jira is opt-in.
+
 ### pm v2.17.0
 - Added `pm-text-explain`: a fixed shape for anything a person reads (Slack posts, thread replies, emails, handovers, status updates): one headline, three to five bullets, an action line and a "more" link, with word caps per channel, reader-level vocabulary, and a rule against unsourced reassurance. Works in Claude Code and Codex.
 
