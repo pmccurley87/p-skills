@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-10-21]
+
+### pm v2.17.0
+- Added `pm-text-explain`: a fixed shape for anything a person reads (Slack posts, thread replies, emails, handovers, status updates): one headline, three to five bullets, an action line and a "more" link, with word caps per channel, reader-level vocabulary, and a rule against unsourced reassurance. Works in Claude Code and Codex.
+
 ## [2026-10-20]
 
 ### pm v2.16.0

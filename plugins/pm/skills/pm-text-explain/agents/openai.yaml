@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Text Explain"
+  short_description: "Write scannable Slack posts, emails and explanations"
+  default_prompt: "Use $pm-text-explain to write this for the reader I name, keeping it short and scannable."
