@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Claims Check"
+  short_description: "Read-only Claimit claims backlog and outcomes check for a courier or client"
+  default_prompt: "Use $pm-claims-check to report New, open and recently closed claims for courier=<name> client=<name> days=7."

@@ -1,5 +1,14 @@
 # Changelog
 
+## [2026-10-23]
+
+### pm (unreleased)
+- Added `pm-shipit-pr-adversarial-review`: the full ship loop (review, fix, merge target, PR, merge, verify deploy) with a `pm-adversary` cross-model review as the gate instead of CodeRabbit. It adds `@coderabbitai ignore` to the PR, merges as soon as CI is green, and defers to a repository's own ship skill for deploy checks.
+- Added `pm-claims-check`: a read-only production view of the live claims for any courier and/or client. It lists every open claim with its status, days in that status and last activity, and shows what was credited, rejected, found or closed in a recent window, with tracking numbers linked to the portal. It skips all-time totals of closed claims. Designed to run on a local schedule.
+- Updated `pm-claims-check`: rejections are always broken down by named rejection reason (each rejected claim lists its reason), and status or reason IDs are never shown without their names. New claims under 24 hours old are left out for couriers that submit in batches through the day (EVRi to start), with the number left out stated in the report.
+- Updated `pm-claims-check`: for clients that email claim files (EVRi × eBay UK to start), a new step lists the latest files from Temporal with their import counts (`scripts/ingest-runs.sh`), judges each run (went well, needs a look, missing, stale resend), cross-checks the claims created in the database, and reads the client's Slack channel when one can be read.
+- Updated `pm-claims-check`: the claim-file list is now always printed for feed scopes, with a notes column to stop known-harmless runs being called failures, and a new spot-check step reads at least five recent claims in full (two submitted in the last two days, the rest spread across five days) for claim type, values, dates, evidence, timeline, emails and outcome, using `scripts/spot-check.sh`.
+
 ## [2026-10-21]
 
 ### pm v2.18.0

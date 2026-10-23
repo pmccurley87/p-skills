@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Ship with Adversarial Review"
+  short_description: "Ship a PR using a cross-model adversarial review instead of CodeRabbit, then merge and verify deploy"
+  default_prompt: "Use $pm-shipit-pr-adversarial-review to review this change with pm-adversary, open the PR, merge it when CI is green and verify the deployment."
