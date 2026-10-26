@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-10-26]
+
+### pm v2.19.0
+- Added `pm-jira-implement`: review a Jira ticket against the existing code and explain the needed changes in plain English. Works in Codex and Claude Code, preserves user scope corrections, and separates review from authorized implementation.
+
 ## [2026-10-23]
 
 ### pm (unreleased)
