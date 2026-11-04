@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Claude Design"
+  short_description: "Create and show Claude Design reviews from Codex"
+  default_prompt: "Use $pm-claude-design to create or revise this mockup in Claude Design and bring the result onto my screen for review."

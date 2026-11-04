@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-11-04]
+
+### pm v2.20.0
+- Added `pm-claude-design`: create and revise Claude Design mockups from Codex or Claude Code, use Ego for authenticated site work, and bring the verified result onto the user's screen with Computer Use while preserving requested design sign-off.
+
 ## [2026-10-26]
 
 ### pm v2.19.0
