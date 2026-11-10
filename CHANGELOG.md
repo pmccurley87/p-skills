@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-11-10]
+
+### pm v2.21.0
+- Added `pm-restore-sql-connection` to restore ClaimIt SQL access after a public IP change and verify that the SQL port is reachable. Azure settings stay in a local file.
+
 ## [2026-11-04]
 
 ### pm v2.20.0
