@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-11-18]
+
+### pm v2.22.0
+- Updated `pm-claude-design` to create, revise, and reopen saved designs in T3 Browser. Reuses the signed-in profile, respects tab ownership, and checks that the Browser is visible before claiming the design is on screen. Works with the global Codex and Claude skill installs.
+
 ## [2026-11-10]
 
 ### pm v2.21.0

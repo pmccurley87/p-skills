@@ -1,6 +1,6 @@
 ---
 name: pm-claude-design
-description: Use when Codex or Claude Code is asked to create, revise, open, or show a Claude Design mockup for review, especially when a design link is not visible to the user or design approval must precede implementation.
+description: Use when Codex or Claude Code is asked to create, revise, open, or show a Claude Design mockup for review, including reopening a saved design in T3 Browser when the user says “bring it up again”.
 ---
 
 # PM Claude Design
@@ -11,6 +11,7 @@ This skill concerns Claude Design. It does not operate the Claude Code CLI. Reso
 
 ## Choose the control route
 
+- For T3 Code, including the linked MacBook, read [macbook-t3.md](references/macbook-t3.md). This route supports the current Design artifact UI; verify the live account before creating anything.
 - Follow the user's chosen tool. For website work in Ego Lite, use `pm-browser-ego` and its `ego-browser` sub-skill. Read the installed browser guide before using its API.
 - Use the host's Computer Use tools for the native Claude app, bringing a window forward, or selecting the visible Ego space. In Codex, discover `cua_repl` and read its returned API documentation.
 - Let the current browser command return before using native controls on that page. This does not mean calling `task.finish()`. Preserve task-space ownership; a user takeover is a stop, not a reason to switch tools.
@@ -29,6 +30,8 @@ See [browser-control.md](references/browser-control.md) for the concrete tool en
 A request to review a design does not authorize product-code changes, deployment, publication, project migration, or broader access. Preserve any sign-off the user requested. Do not add approval gates they did not request.
 
 ## Show it to the user
+
+For T3 Browser, follow the show/reopen steps in [macbook-t3.md](references/macbook-t3.md). Keep its tab open when review was requested. If the browser still reports `visible:false`, say so and tell the user to select Browser in the exact linked thread.
 
 A shared link or queued Codex panel is an intermediate result. If the user asks to see it on screen, use native Computer Use to raise the right window and select the project or Ego space. In an overview, click the preview to open it; clicking its name can enter rename mode.
 
