@@ -23,7 +23,15 @@ Use `t3_thread_list` to find `currentThreadId` when needed, then `t3_thread_read
 
 If a preview step fails twice, quote the error and use an allowed installed fallback. A human ownership stop is not a tool failure and must not be bypassed. If no permitted route remains, report the concrete block.
 
+## Check the Browser's account
+
+When a saved link shows “not found”, compare accounts before anything else. The account menu shows the signed-in user. On a claude.ai page in your own tab, a same-origin read of `/api/account` also returns the account email and organizations; mask the email when reporting it. Do not read cookies or storage.
+
+If the Browser's account differs from the one that owns the design, ask the user which to use. Signing out or switching accounts in their Browser is their decision.
+
 ## Create or revise
+
+When the agent has the `Artifact` tool, create and revise through it (see [artifact-route.md](artifact-route.md)) and use T3 Browser only to show the result. The steps below are for agents without that tool.
 
 Verify the live account through the visible account menu before creating anything. Use any account specified by the user. Do not sign out a different account to obtain it.
 

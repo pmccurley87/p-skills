@@ -2,6 +2,11 @@
 
 ## [2026-11-18]
 
+### pm v2.23.0
+- `pm-claude-design` now builds mockups as Design artifacts through the Artifact tool instead of driving Claude Design in a browser. Claude Design is being retired; old projects can be exported and moved into an artifact.
+- Adds an account check: a "not found" design link is usually a browser signed in to a different account. The skill compares accounts and asks before switching.
+- Mockups of an existing app start from a real screenshot, with private data blurred first.
+
 ### pm v2.22.0
 - Updated `pm-claude-design` to create, revise, and reopen saved designs in T3 Browser. Reuses the signed-in profile, respects tab ownership, and checks that the Browser is visible before claiming the design is on screen. Works with the global Codex and Claude skill installs.
 
