@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-11-24]
+
+### pm v2.24.0
+- Added `jira-create`: raise a Jira ticket for the work in the current session and name the session after it. The ticket only counts as raised once it is assigned to you, in the board's in-progress status, and on the board rather than in the backlog, each confirmed by a read after the write. Reuses an existing ticket when one already covers the work.
+
 ## [2026-11-18]
 
 ### pm v2.23.0
